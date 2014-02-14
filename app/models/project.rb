@@ -2,7 +2,11 @@ class Project < ActiveRecord::Base
   has_many :deposits # todo: only confirmed deposits that have amount > paid_out
   has_many :tips
 
+  validates :full_name, uniqueness: true, presence: true
+  validates :github_id, uniqueness: true, presence: true
+
   def update_github_info repo
+    self.github_id = repo.id
     self.name = repo.name
     self.full_name = repo.full_name
     self.source_full_name = repo.source.full_name rescue ''
@@ -68,8 +72,13 @@ class Project < ActiveRecord::Base
           user = User.create({
           email: email,
           password: generated_password,
-          name: commit.commit.author.name
+          name: commit.commit.author.name,
+          nickname: (commit.author.login rescue nil)
         })
+      end
+
+      if commit.author && commit.author.login
+        user.update nickname: commit.author.login
       end
 
       # create tip
@@ -113,9 +122,35 @@ class Project < ActiveRecord::Base
     (CONFIG["tip"]*available_amount).ceil
   end
 
+  def update_cache
+    update available_amount_cache: available_amount
+  end
+
   def self.update_cache
     find_each do |project|
-      project.update available_amount_cache: project.available_amount
+      project.update_cache
+    end
+  end
+
+  def github_info
+    client = Octokit::Client.new \
+      :client_id     => CONFIG['github']['key'],
+      :client_secret => CONFIG['github']['secret']
+    if github_id.present?
+      client.get("/repositories/#{github_id}")
+    else
+      client.repo(full_name)
+    end
+  end
+
+  def update_info
+    begin
+      update_github_info(github_info)
+    rescue Octokit::BadGateway, Octokit::NotFound, Octokit::InternalServerError,
+           Errno::ETIMEDOUT, Net::ReadTimeout, Faraday::Error::ConnectionFailed => e
+      Rails.logger.info "Project ##{id}: #{e.class} happened"
+    rescue StandardError => e
+      Airbrake.notify(e)
     end
   end
 
