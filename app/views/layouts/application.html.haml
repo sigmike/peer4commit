@@ -7,7 +7,7 @@
     %meta{content: "", name: "author"}/
     %link{href: "/favicon.png", rel: "shortcut icon"}/
     
-    %title= "Tip4Commit — " + (content_for?(:title) ? yield(:title) : "Contribute to Open Source")
+    %title= "Peer4Commit — " + (content_for?(:title) ? yield(:title) : "Contribute to Open Source")
 
     %meta{:name => 'description', :content => (content_for?(:title) ? yield(:title) : "Donate bitcoins to open source projects or make commits and get tips for it.")}
     %meta{:name => 'keywords', :content => 'open source,cotribute,github,community,git,bitcoin,tips,perks'}
@@ -34,12 +34,12 @@
             - if current_user
               = current_user.full_name
               \/
-              = link_to btc_human(current_user.balance), current_user
+              = link_to ppc_human(current_user.balance), current_user
               \/
               = link_to 'Sign Out', destroy_user_session_path, method: :delete
             - else
               %a{href: user_omniauth_authorize_path(:github)} Sign in
-        %h3.text-muted.code-pro Tip4Commit
+        %h3.text-muted.code-pro Peer4Commit
         = render 'common/menu'
       - if flash[:alert]
         %br
@@ -52,11 +52,12 @@
       .footer
         %p
           ©
+          = link_to 'Peer4commit', 'http://peer4commit.com/', target: '_blank'
+          Based on
           = link_to 'Tip4commit', 'http://tip4commit.com/', target: '_blank'
-          2013-2014. Source code is available at #{link_to('github', 'https://github.com/tip4commit/tip4commit', target: '_blank')}, you can
-          = link_to('support', 'http://tip4commit.com/projects/307')
+          2013-2014. Source code is available at #{link_to('github', 'https://github.com/sigmike/peer4commit', target: '_blank')}, you can
+          = link_to('support', 'http://tip4commit.com/projects/560')
           its development.
-          = link_to 'Follow @tip4commit', 'https://twitter.com/tip4commit', target: '_blank'
     / /container
     /
       Bootstrap core JavaScript

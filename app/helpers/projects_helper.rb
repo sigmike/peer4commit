@@ -1,8 +1,8 @@
 module ProjectsHelper
 
-  def shield_btc_amount amount
-    btc_amount = to_btc amount
-    "%.#{9 - btc_amount.to_i.to_s.length}f Ƀ" % btc_amount
+  def shield_ppc_amount amount
+    btc_amount = to_ppc amount
+    "%.#{9 - btc_amount.to_i.to_s.length}f PPC" % btc_amount
   end
 
   def shield_color project

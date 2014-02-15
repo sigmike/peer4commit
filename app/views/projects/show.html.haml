@@ -25,15 +25,15 @@
     - unless @project.description.blank?
       .well.well-sm= @project.description
     %h4 Balance
-    = btc_human @project.available_amount
+    = ppc_human @project.available_amount
     (each new commit receives #{(CONFIG["tip"]*100).round}% of available balance)
     - if (unconfirmed_amount = @project.unconfirmed_amount) > 0
-      (#{btc_human unconfirmed_amount} unconfirmed)
+      (#{ppc_human unconfirmed_amount} unconfirmed)
 
     %h4 Tips Paid
-    = btc_human @project.tips_paid_amount
+    = ppc_human @project.tips_paid_amount
     - if (tips_paid_unclaimed_amount = @project.tips_paid_unclaimed_amount) > 0
-      (#{btc_human tips_paid_unclaimed_amount} of this is unclaimed, and will be refunded to the project after being unclaimed for 1 month.)
+      (#{ppc_human tips_paid_unclaimed_amount} of this is unclaimed, and will be refunded to the project after being unclaimed for 1 month.)
 
     - if @project.tips.count > 0
       %h4
@@ -49,13 +49,13 @@
             - else
               = link_to tip.user.full_name, "https://github.com/#{tip.user.nickname}", target: '_blank'
             received
-            = btc_human tip.amount
+            = ppc_human tip.amount
             for commit
             = link_to tip.commit[0..6], "https://github.com/#{@project.full_name}/commit/#{tip.commit}", target: :blank
 
     - if @project.next_tip_amount > 0
       %h4 Next Tip
-      = btc_human @project.next_tip_amount
+      = ppc_human @project.next_tip_amount
 
     %h4 Contribute and Earn
     Donate bitcoins to this project or

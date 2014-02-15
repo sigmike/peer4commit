@@ -2,11 +2,11 @@
 %p
   %strong Balance
 %p
-  = btc_human @user.balance
+  = ppc_human @user.balance
 %p
   %small
     You will get your money when your balance hits the threshold of
-    = btc_human CONFIG["min_payout"]
+    = ppc_human CONFIG["min_payout"]
 %p
   %strong E-mail
 %p= @user.email

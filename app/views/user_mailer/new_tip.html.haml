@@ -1,8 +1,8 @@
 %h4 Hello, #{@user.full_name}!
 
-%p You were tipped #{btc_human @tip.amount} for your commit on Project #{@tip.project.full_name}. Please, log in and tell us your bitcoin address to get it.
+%p You were tipped #{ppc_human @tip.amount} for your commit on Project #{@tip.project.full_name}. Please, log in and tell us your bitcoin address to get it.
 
-%p Your current balance is #{btc_human @user.balance}. If you don't enter a bitcoin address your tips will be returned to the project in 30 days.
+%p Your current balance is #{ppc_human @user.balance}. If you don't enter a bitcoin address your tips will be returned to the project in 30 days.
 
 %p If you don't need bitcoins you can redirect your funds to any charity by using its address which you can find at #{link_to 'coingiving.com', 'http://coingiving.com/'}.
 
