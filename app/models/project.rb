@@ -72,8 +72,13 @@ class Project < ActiveRecord::Base
           user = User.create({
           email: email,
           password: generated_password,
-          name: commit.commit.author.name
+          name: commit.commit.author.name,
+          nickname: (commit.author.login rescue nil)
         })
+      end
+
+      if commit.author && commit.author.login
+        user.update nickname: commit.author.login
       end
 
       # create tip
