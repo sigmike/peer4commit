@@ -78,6 +78,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    exception_notification (4.0.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     execjs (2.0.2)
     faraday (0.8.9)
       multipart-post (~> 1.2.0)
@@ -229,6 +232,7 @@ DEPENDENCIES
   capistrano-rvm!
   coffee-rails (~> 4.0.0)
   devise
+  exception_notification
   haml-rails
   httparty
   jbuilder (~> 1.2)

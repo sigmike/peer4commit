@@ -61,14 +61,14 @@ T4c::Application.configure do
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
 
-  config.action_mailer.default_url_options = { :host => CONFIG['smtp_settings']['domain'] }
+  config.action_mailer.default_url_options = { :host => default_hostname = CONFIG['smtp_settings']['domain'] }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = CONFIG['smtp_settings'].to_options
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'no-reply@' + CONFIG['smtp_settings']['domain'] }
+  config.action_mailer.default_options = {from: default_from = 'no-reply@' + default_hostname }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
@@ -82,4 +82,13 @@ T4c::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  if (exception_email = CONFIG["exception_email"]).present?
+    T4c::Application.config.middleware.use ExceptionNotification::Rack,
+      :email => {
+        :email_prefix => "[#{default_hostname}] ",
+        :sender_address => default_from,
+        :exception_recipients => exception_email,
+      }
+  end
 end
