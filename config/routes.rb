@@ -10,6 +10,9 @@ T4c::Application.routes.draw do
   end
   resources :projects, :only => [:show, :index, :create] do
     resources :tips, :only => [:index]
+    member do
+      get :qrcode
+    end
   end
   resources :tips, :only => [:index]
   resources :withdrawals, :only => [:index]

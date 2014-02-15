@@ -12,6 +12,13 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def qrcode
+    @project = Project.find params[:id]
+    respond_to do |format|
+      format.svg  { render :qrcode => @project.bitcoin_address, level: :l, unit: 4 }
+    end
+  end
+
   def create
     project_name = params[:full_name].
       gsub(/https?\:\/\/github.com\//, '').
