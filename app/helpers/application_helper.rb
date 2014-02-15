@@ -12,4 +12,8 @@ module ApplicationHelper
   def to_btc satoshies
     satoshies.to_d / PeercoinBalanceUpdater::COIN if satoshies
   end
+
+  def transaction_url(txid)
+    "http://bkchain.org/ppc/tx/#{txid}"
+  end
 end
