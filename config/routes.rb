@@ -2,7 +2,6 @@ T4c::Application.routes.draw do
 
   root 'home#index'
 
-  get '/blockchain_info_callback' => "home#blockchain_info_callback", :as => "blockchain_info_callback"
   resources :users, :only => [:show, :update, :index] do
     collection do
       get :login
