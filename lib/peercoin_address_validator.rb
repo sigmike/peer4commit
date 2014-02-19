@@ -1,8 +1,8 @@
 require 'digest'
 
-class BitcoinAddressValidator < ActiveModel::EachValidator
+class PeercoinAddressValidator < ActiveModel::EachValidator
   def validate_each(record, field, value)
-    unless value.blank? || valid_bitcoin_address?(value)
+    unless value.blank? || valid_peercoin_address?(value)
       record.errors[field] << "Peercoin address is invalid"
     end
   end
@@ -12,7 +12,7 @@ class BitcoinAddressValidator < ActiveModel::EachValidator
   B58Chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
   B58Base = B58Chars.length
 
-  def valid_bitcoin_address?(address)
+  def valid_peercoin_address?(address)
     if (address =~ /^[a-zA-Z1-9]{33,35}$/) and version = version(address)
       if (expected_versions = CONFIG["address_versions"]).present?
         expected_versions.include?(version.ord)
@@ -26,7 +26,7 @@ class BitcoinAddressValidator < ActiveModel::EachValidator
 
   def version(address)
     decoded = b58_decode(address, 25)
-    
+
     version = decoded[0, 1]
     checksum = decoded[-4, decoded.length]
     vh160 = decoded[0, decoded.length - 4]

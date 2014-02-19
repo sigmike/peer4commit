@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215094549) do
+ActiveRecord::Schema.define(version: 20140219164919) do
 
   create_table "deposits", force: true do |t|
     t.integer  "project_id"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20140215094549) do
 
   create_table "projects", force: true do |t|
     t.string   "url"
-    t.string   "bitcoin_address"
+    t.string   "peercoin_address"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20140215094549) do
     t.string   "nickname"
     t.string   "name"
     t.string   "image"
-    t.string   "bitcoin_address"
+    t.string   "peercoin_address"
     t.string   "login_token"
     t.boolean  "unsubscribed"
     t.datetime "notified_at"

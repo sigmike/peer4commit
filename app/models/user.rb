@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   devise :omniauthable, :omniauth_providers => [:github]
 
-  validates :bitcoin_address, :bitcoin_address => true
+  validates :peercoin_address, :peercoin_address => true
 
   has_many :tips
 
