@@ -123,7 +123,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.update_cache
-    find_each do |project|
+    includes(:deposits, :tips).find_each do |project|
       project.update available_amount_cache: project.available_amount
     end
   end
