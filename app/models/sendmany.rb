@@ -1,6 +1,6 @@
 class Sendmany < ActiveRecord::Base
   belongs_to :project
-  has_many :tips
+  has_many :tips, dependent: :destroy
 
   def send_transaction
     return if txid || is_error
