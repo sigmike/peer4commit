@@ -20,6 +20,10 @@ class Tip < ActiveRecord::Base
 
   scope :with_address,  -> { joins(:user).where('users.bitcoin_address IS NOT NULL') }
 
+  def paid?
+    !!sendmany_id
+  end
+
   def self.refund_unclaimed
     unclaimed.non_refunded.
     where('tips.created_at < ?', Time.now - 1.month).
