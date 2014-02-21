@@ -2,8 +2,8 @@
 
 one:
   url: MyString
-  bitcoin_address: MyString
+  peercoin_address: MyString
 
 two:
   url: MyString
-  bitcoin_address: MyString
+  peercoin_address: MyString

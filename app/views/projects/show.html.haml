@@ -3,7 +3,7 @@
   = @project.name
 - content_for :description do
   = @project.description
-  
+
 %h1
   = @project.full_name
   %small= link_to glyph(:github), @project.github_url, target: '_blank'
@@ -17,10 +17,10 @@
       .panel-body.text-center
         %p To give to this project, send peercoins to this address:
         %p
-          = @project.bitcoin_address
+          = @project.peercoin_address
         %p
-          = image_tag qrcode_project_path(@project, format: :svg), alt: @project.bitcoin_address, class: "project qrcode"
-        %p #{100-(CONFIG["our_fee"]*100).round}% of deposited funds will be used to tip for new commits. 
+          = image_tag qrcode_project_path(@project, format: :svg), alt: @project.peercoin_address, class: "project qrcode"
+        %p #{100-(CONFIG["our_fee"]*100).round}% of deposited funds will be used to tip for new commits.
   .col-md-8
     - unless @project.description.blank?
       .well.well-sm= @project.description
@@ -63,12 +63,12 @@
     and get tips for it. If your commit is accepted by project maintainer and there are peercoins on its balance, you will get a tip!
 
     - if current_user
-      - if current_user.bitcoin_address.blank?
-        Just 
+      - if current_user.peercoin_address.blank?
+        Just
         = link_to 'tell us', current_user
-        your peercoin address.      
+        your peercoin address.
     - else
-      Just check your email or 
+      Just check your email or
       %a{href: user_omniauth_authorize_path(:github)} Sign In.
 
     %h4 Promote #{@project.full_name}

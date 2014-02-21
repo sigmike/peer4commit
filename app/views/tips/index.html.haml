@@ -32,7 +32,7 @@
             - if tip.sendmany.nil?
               - if tip.refunded_at
                 Refunded to project's deposit
-              - elsif tip.user.bitcoin_address.blank?
+              - elsif tip.user.peercoin_address.blank?
                 User didn't specify withdrawal address
               - elsif tip.project.amount_to_pay < CONFIG["min_payout"].to_d * PeercoinBalanceUpdater::COIN
                 The amount of tips for this project is below withdrawal threshold

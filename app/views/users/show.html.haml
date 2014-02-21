@@ -14,6 +14,6 @@
   - if @user.errors.size > 0
     .alert.alert-danger Peercoin address is invalid.
   .form-group
-    = f.label :bitcoin_address
-    = f.text_field :bitcoin_address, class: 'form-control', placeholder: 'Your peercoin address'
+    = f.label :peercoin_address
+    = f.text_field :peercoin_address, class: 'form-control', placeholder: 'Your peercoin address'
   = f.button :update, class: 'btn btn-default'
