@@ -1,13 +1,15 @@
 require 'net/http'
 
 class ProjectsController < ApplicationController
+
+  before_action :load_project, only: [:show, :qrcode]
+
   def index
     @projects = Project.order(available_amount_cache: :desc, watchers_count: :desc, full_name: :asc).page(params[:page]).per(30)
   end
 
   def show
-    @project = Project.find params[:id]
-    if @project and @project.bitcoin_address.nil? and (github_id = @project.github_id).present?
+    if @project.bitcoin_address.nil? and (github_id = @project.github_id).present?
       label = "#{github_id}@peer4commit"
       address = PeercoinDaemon.instance.get_new_address(label)
       @project.update_attributes(bitcoin_address: address, address_label: label)
@@ -15,9 +17,8 @@ class ProjectsController < ApplicationController
   end
 
   def qrcode
-    @project = Project.find params[:id]
     respond_to do |format|
-      format.svg  { render :qrcode => @project.bitcoin_address, level: :l, unit: 4 }
+      format.svg  { render qrcode: @project.bitcoin_address, level: :l, unit: 4 }
     end
   end
 
@@ -36,6 +37,15 @@ class ProjectsController < ApplicationController
       redirect_to @project
     rescue Octokit::NotFound
       redirect_to projects_path, alert: "Project not found"
+    end
+  end
+
+  private
+
+  def load_project
+    @project = Project.where(id: params[:id]).first
+    unless @project
+      redirect_to root_path, alert: "Project not found"
     end
   end
 end
