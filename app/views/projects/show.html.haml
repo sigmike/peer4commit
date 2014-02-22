@@ -19,7 +19,7 @@
         %p
           = @project.bitcoin_address
         %p
-          = image_tag qrcode_project_path(@project, format: :svg), alt: @project.bitcoin_address, class: "project qrcode"
+          = image_tag qrcode_project_path(@project, format: :svg), alt: @project.bitcoin_address, class: 'project qrcode'
         %p #{100-(CONFIG["our_fee"]*100).round}% of deposited funds will be used to tip for new commits. 
   .col-md-8
     - unless @project.description.blank?

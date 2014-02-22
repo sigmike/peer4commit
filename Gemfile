@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.0.2'
 
 # Databases
-gem 'sqlite3', group: :development
 gem 'mysql2', group: :mysql
 gem 'pg', group: :postgresql
 
@@ -56,6 +55,7 @@ gem 'octokit'
 # gem 'debugger', group: [:development, :test]
 
 group :development do
+  gem 'sqlite3'
   gem 'capistrano', '~> 3.0'
   gem 'capistrano-rvm', github: 'capistrano/rvm'
   gem 'capistrano-bundler', '>= 1.1.0'

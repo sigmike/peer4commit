@@ -1,12 +1,12 @@
 %h1 Supported Projects
 %p
-  = form_tag projects_path, html: {role: 'form', class: 'form-inline"'}, method: :post do |f|
+  = form_tag projects_path, html: {role: 'form', class: 'form-inline'}, method: :post do |f|
     .form-group
       .row
         .col-lg-10
           = text_field_tag :full_name, '', class: 'form-control', placeholder: 'Enter GitHub project URL to find or add a project e.g. rails/rails'
         .col-lg-2
-          %button(type="submit" class="btn form-control btn-default") Find or add project
+          = submit_tag "Find or add project", class: 'btn form-control btn-default'
 %p
   %table.table
     %thead
