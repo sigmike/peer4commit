@@ -3,14 +3,13 @@ class Tip < ActiveRecord::Base
   belongs_to :sendmany
   belongs_to :project
 
-  validates :amount, :numericality => { :greater_than => 0 }
+  validates :amount, numericality: { greater_than: 0 }
 
-  scope :unpaid,        -> { non_refunded.
-                             where(sendmany_id: nil) }
+  scope :unpaid,        -> { non_refunded.where(sendmany_id: nil) }
 
-  scope :paid,          -> { where('sendmany_id is not ?', nil) }
+  scope :paid,          -> { where.not(sendmany_id: nil) }
 
-  scope :refunded,      -> { where('refunded_at is not ?', nil) }
+  scope :refunded,      -> { where.not(refunded_at: nil) }
 
   scope :non_refunded,  -> { where(refunded_at: nil) }
 
@@ -18,7 +17,7 @@ class Tip < ActiveRecord::Base
                              unpaid.
                              where('users.bitcoin_address' => ['', nil]) }
 
-  scope :with_address,  -> { joins(:user).where('users.bitcoin_address IS NOT NULL') }
+  scope :with_address,  -> { joins(:user).where.not('users.bitcoin_address' => nil) }
 
   def self.refund_unclaimed
     unclaimed.non_refunded.
