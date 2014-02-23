@@ -10,19 +10,15 @@ class User < ActiveRecord::Base
 
   has_many :tips
 
+  # Callbacks
+  before_create :generate_login_token!, unless: :login_token?
+
   def github_url
     "https://github.com/#{nickname}"
   end
 
   def balance
-  	tips.unpaid.sum(:amount)
-  end
-
-  after_create :generate_login_token!
-  def generate_login_token!
-    if login_token.blank?
-      self.update login_token: SecureRandom.urlsafe_base64
-    end
+    tips.unpaid.sum(:amount)
   end
 
   def full_name
@@ -43,6 +39,15 @@ class User < ActiveRecord::Base
       user.commits_count = commits_counts[user.id] || 0
       user.withdrawn_amount = paid_sums[user.id] || 0
       user.save
+    end
+  end
+
+  private
+
+  def generate_login_token!
+    loop do
+      self.login_token = SecureRandom.urlsafe_base64
+      break login_token unless User.exists?(login_token: login_token)
     end
   end
 
