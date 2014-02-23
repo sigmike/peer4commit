@@ -16,4 +16,16 @@ module ApplicationHelper
   def transaction_url(txid)
     "http://bkchain.org/ppc/tx/#{txid}"
   end
+
+  def render_flash_message
+    html = []
+    flash.each do |_type, _message|
+      alert_type = case _type
+        when :notice then :success
+        when :alert  then :danger
+      end
+      html << content_tag(:div, class: "text-center alert alert-#{alert_type}"){ _message }
+    end
+    html.join("\n").html_safe
+  end
 end

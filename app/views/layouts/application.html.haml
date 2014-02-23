@@ -41,12 +41,7 @@
               %a{href: user_omniauth_authorize_path(:github)} Sign in
         %h3.text-muted.code-pro Peer4Commit
         = render 'common/menu'
-      - if flash[:alert]
-        %br
-        .alert= flash[:alert]
-      - if flash[:notice]
-        %br
-        .alert.alert-info= flash[:notice]
+        = render_flash_message
       = yield
       / Site footer
       .footer
