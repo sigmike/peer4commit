@@ -1,23 +1,24 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def github
-    # render text: "#{request.env["omniauth.auth"].to_json}"
-    info = request.env["omniauth.auth"]["info"]
-    @user = User.find_by :nickname => info["nickname"]
-    @user ||= User.find_by :email => info["email"]
-    unless @user
-      generated_password = Devise.friendly_token.first(8)
-      @user = User.create!(
-        :email => info['email'],
-        :password => generated_password,
-        :nickname => info['nickname']
-      )
-    end
+  before_action :load_omniauth_info, only: :github
 
-    @user.name = info['name']
-    @user.image = info['image']
-    @user.save
+  def github
+    @user = User.find_by(nickname: @omniauth_info.nickname) ||
+            User.find_by(email: @omniauth_info.email) ||
+            User.create_with_omniauth!(@omniauth_info)
+
+    @user.update(@omniauth_info.slice(:name, :image).as_json)
     
-    sign_in_and_redirect @user, :event => :authentication
-    set_flash_message(:notice, :success, :kind => "Github") if is_navigational_format?
+    sign_in_and_redirect @user, event: :authentication
+    set_flash_message(:notice, :success, kind: 'Github') if is_navigational_format?
+  end
+
+  private
+
+  def load_omniauth_info
+    @omniauth_info = request.env['omniauth.auth']['info']
+    unless @omniauth_info
+      set_flash_message(:error, :failure, kind: 'Github', reason: 'we were unable to fetch your information.')
+      redirect_to users_login_path and return
+    end
   end
 end
