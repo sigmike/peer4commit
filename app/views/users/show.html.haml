@@ -10,7 +10,7 @@
 %p
   %strong E-mail
 %p= @user.email
-= form_for @user, html: {role: 'form', class: 'form-inline"'} do |f|
+= form_for @user, html: {role: 'form', class: 'form-inline'} do |f|
   - if @user.errors.size > 0
     .alert.alert-danger Peercoin address is invalid.
   .form-group
