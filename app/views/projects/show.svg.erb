@@ -1,7 +1,7 @@
 <svg version="1.1"
      xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink"
-     width="<%= width = 140 %>px"
+     width="<%= width = 168 %>px"
      height="18px">
   <defs>
     <linearGradient id="gray" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="18">
@@ -71,16 +71,16 @@
   
   <g id="vendor">
     <path d="M0,9 v-6 q0,-3,3,-3 v18 q-3,0,-3,-3 Z" fill="url(#gray)" />
-    <rect x="3" y="0" width="<%= width1 = 67 %>" height="18" fill="url(#gray)" />
-    <text x="6" y="12" font-family="Open Sans" font-size="10" fill="#FFFFFF" style="filter:url(#dropshadow)">
+    <rect x="3" y="0" width="<%= width1 = 80 %>" height="22" fill="url(#gray)" />
+    <text x="6" y="15" font-family="Open Sans" font-size="12" fill="#FFFFFF" style="filter:url(#dropshadow)">
           peer4commit
     </text>
   </g>
 
   <g id="status">
-    <rect x="<%= width1 + 3 %>" y="0" width="<%= width - width1 - 6 %>" height="18" fill="url(#<%= shield_color @project %>)" />
+    <rect x="<%= width1 + 3 %>" y="0" width="<%= width - width1 - 6 %>" height="22" fill="url(#<%= shield_color @project %>)" />
     <path fill="url(#<%= shield_color @project %>)" d="M<%= width %>,9 v-6 q0,-3,-3,-3 v18 q3,0,3,-3 Z" />
-    <text x="<%= width1 + 7 %>" y="12" font-family="Open Sans" font-size="10" fill="#FFFFFF" style="filter:url(#dropshadow)">
+    <text x="<%= width1 + 7 %>" y="15" font-family="Open Sans" font-size="12" fill="#FFFFFF" style="filter:url(#dropshadow)">
           <%= shield_btc_amount @project.next_tip_amount %>
     </text>
   </g>
