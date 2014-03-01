@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
   	tips.unpaid.sum(:amount)
   end
 
+  def subscribed?
+    !unsubscribed?
+  end
+
   after_create :generate_login_token!
   def generate_login_token!
     if login_token.blank?
@@ -43,6 +47,17 @@ class User < ActiveRecord::Base
       user.commits_count = commits_counts[user.id] || 0
       user.withdrawn_amount = paid_sums[user.id] || 0
       user.save
+    end
+  end
+
+
+  def self.find_or_create_with_commit commit
+    author = commit.commit.author
+    where(email: author.email).first_or_create do |user|
+      user.email    = author.email
+      user.password = Devise.friendly_token.first(Devise.password_length.min)
+      user.name     = author.name
+      user.nickname = commit.author.try(:login)
     end
   end
 
