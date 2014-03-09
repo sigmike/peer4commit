@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215094549) do
+ActiveRecord::Schema.define(version: 20140309161105) do
 
   create_table "deposits", force: true do |t|
     t.integer  "project_id"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20140215094549) do
     t.integer  "watchers_count"
     t.string   "language"
     t.string   "last_commit"
-    t.integer  "available_amount_cache"
+    t.integer  "available_amount_cache", limit: 8
     t.string   "github_id"
     t.string   "address_label"
   end
