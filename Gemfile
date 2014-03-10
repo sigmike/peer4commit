@@ -68,3 +68,10 @@ gem 'whenever'
 gem 'rqrcode-rails3'
 gem 'exception_notification'
 gem 'rack-canonical-host'
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
+  gem 'rspec-rails'
+end
