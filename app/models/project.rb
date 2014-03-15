@@ -91,7 +91,7 @@ class Project < ActiveRecord::Base
 
       # notify user
       if tip && user.bitcoin_address.blank? && !user.unsubscribed
-        if !user.notified_at || (user.notified_at < (Time.now - 30.days))
+        if !user.notified_at || (user.notified_at < (Time.current - 30.days))
           UserMailer.new_tip(user, tip).deliver
           user.touch :notified_at
         end

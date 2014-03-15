@@ -26,7 +26,7 @@ class Tip < ActiveRecord::Base
 
   def self.refund_unclaimed
     unclaimed.non_refunded.
-    where('tips.created_at < ?', Time.now - 1.month).
+    where('tips.created_at < ?', Time.current - 1.month).
     find_each do |tip|
       tip.touch :refunded_at
     end

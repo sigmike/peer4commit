@@ -26,7 +26,7 @@ module PeercoinBalanceUpdater
             amount: (transaction["amount"].to_d * COIN).to_i,
             duration: 30.days.to_i,
             paid_out: 0,
-            paid_out_at: Time.now
+            paid_out_at: Time.current
           })
         end
 
