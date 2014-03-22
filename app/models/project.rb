@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   has_many :deposits # todo: only confirmed deposits that have amount > paid_out
   has_many :tips
+  has_many :collaborators
 
   validates :full_name, uniqueness: true, presence: true
   validates :github_id, uniqueness: true, presence: true
@@ -14,6 +15,25 @@ class Project < ActiveRecord::Base
     self.watchers_count = repo.watchers_count
     self.language = repo.language
     self.save!
+  end
+
+  def update_github_collaborators(github_collaborators)
+    github_logins = github_collaborators.map(&:login)
+    existing_logins = collaborators.map(&:login)
+
+    collaborators.each do |collaborator|
+      unless github_logins.include?(collaborator.login)
+        collaborator.mark_for_destruction
+      end
+    end
+
+    github_collaborators.each do |github_collaborator|
+      unless existing_logins.include?(github_collaborator.login)
+        collaborators.build(login: github_collaborator.login)
+      end
+    end
+
+    save!
   end
 
   def github_url
@@ -32,8 +52,6 @@ class Project < ActiveRecord::Base
           :client_secret => CONFIG['github']['secret'],
           :per_page      => 100
         client.commits(full_name).
-          # Filter merge request
-          select{|c| !(c.commit.message =~ /^(Merge\s|auto\smerge)/)}.
           # Filter fake emails
           select{|c| c.commit.author.email =~ Devise::email_regexp }.
           # Filter commited after t4c project creation
@@ -51,15 +69,40 @@ class Project < ActiveRecord::Base
   end
 
   def tip_commits
-    new_commits.each do |commit|
-      Project.transaction do
-        tip_for commit
-        update_attribute :last_commit, commit.sha
+    commits = new_commits
+    sha_set = CommitShaSet.new(commits)
+    commit_modifiers = Hash.new(1.0)
+
+    merges = commits.select { |c| c.parents.size > 1 }
+    collaborator_logins = collaborators.map(&:login)
+
+    merges.each do |commit|
+      commit_modifiers[commit.sha] = 0
+
+      if modifier = TipModifier.find_in_message(commit.commit.message)
+        logger.info "Found modifier #{modifier.name} in commit #{commit.sha}"
+
+        next unless collaborator_logins.include?(commit.author.try(:login))
+
+        if merged_commits = sha_set.merged_commits(commit.sha)
+          merged_commits.each do |modified_commit|
+            commit_modifiers[modified_commit] = modifier.value
+            logger.info "Applying modifier #{modifier} on commit #{modified_commit}"
+          end
+        end
       end
+    end
+
+    commits.each do |commit|
+      modifier = commit_modifiers[commit.sha]
+      if modifier > 0
+        tip_for commit, modifier
+      end
+      update_attribute :last_commit, commit.sha
     end
   end
 
-  def tip_for commit
+  def tip_for(commit, modifier = 1.0)
     email = commit.commit.author.email
     user = User.find_by email: email
 
@@ -82,10 +125,10 @@ class Project < ActiveRecord::Base
       end
 
       # create tip
-      tip = Tip.create({
+      tip = tips.create({
         project: self,
         user: user,
-        amount: next_tip_amount,
+        amount: next_tip_amount * modifier,
         commit: commit.sha
       })
 
@@ -139,9 +182,17 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def github_collaborators
+    client = Octokit::Client.new \
+      :client_id     => CONFIG['github']['key'],
+      :client_secret => CONFIG['github']['secret']
+    client.get("/repos/#{full_name}/collaborators")
+  end
+
   def update_info
     begin
       update_github_info(github_info)
+      update_github_collaborators(github_collaborators)
     rescue Octokit::BadGateway, Octokit::NotFound, Octokit::InternalServerError,
            Errno::ETIMEDOUT, Net::ReadTimeout, Faraday::Error::ConnectionFailed => e
       Rails.logger.info "Project ##{id}: #{e.class} happened"
