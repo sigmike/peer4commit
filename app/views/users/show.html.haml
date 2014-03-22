@@ -17,3 +17,9 @@
     = f.label :bitcoin_address
     = f.text_field :bitcoin_address, class: 'form-control', placeholder: 'Your peercoin address'
   = f.button :update, class: 'btn btn-default'
+
+- if @user.balance > 0
+  .send-tips-back-block
+    %p
+      If you don't want the tips, you can send the funds back to the supported projects:
+      = button_to "Send all my tips back to their project", send_tips_back_user_path(@user), class: "btn", confirm: "All the #{to_btc @user.balance} peercoins you received will be sent back to their project. Are you sure?"

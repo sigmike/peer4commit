@@ -5,8 +5,9 @@ class Tip < ActiveRecord::Base
 
   validates :amount, :numericality => { :greater_than => 0 }
 
-  scope :unpaid,        -> { non_refunded.
-                             where(sendmany_id: nil) }
+  scope :not_sent,      -> { where(sendmany_id: nil) }
+
+  scope :unpaid,        -> { non_refunded.not_sent }
 
   scope :paid,          -> { where('sendmany_id is not ?', nil) }
 

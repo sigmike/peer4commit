@@ -6,6 +6,9 @@ T4c::Application.routes.draw do
     collection do
       get :login
     end
+    member do
+      post :send_tips_back
+    end
   end
   resources :projects, :only => [:show, :index, :create] do
     resources :tips, :only => [:index]
