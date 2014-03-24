@@ -8,10 +8,12 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user_tips   = @user.tips
+ +  @recent_tips = @user_tips.includes(:project).order(created_at: :desc).first(5)
   end
 
   def index
-    @users = User.order(:withdrawn_amount => :desc, :commits_count => :desc).where('commits_count > 0').page(params[:page]).per(30)
+    @users = User.order(withdrawn_amount: :desc, commits_count: :desc).where('commits_count > 0').page(params[:page]).per(30)
   end
 
   def update
@@ -25,7 +27,7 @@ class UsersController < ApplicationController
   def login
     @user = User.find_by(login_token: params[:token])
     if @user
-      sign_in_and_redirect @user, :event => :authentication
+      sign_in_and_redirect @user, event: :authentication
       if params[:unsubscribe]
         @user.update unsubscribed: true
         flash[:alert] = 'You unsubscribed! Sorry for bothering you. Although, you still can leave us your peercoin address to get your tips.'
