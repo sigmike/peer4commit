@@ -46,6 +46,8 @@ gem 'omniauth-github', github: 'alexandrz/omniauth-github', branch: 'provide_ema
 
 gem 'octokit'
 
+gem 'sawyer'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
