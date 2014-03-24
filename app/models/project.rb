@@ -2,8 +2,8 @@ class Project < ActiveRecord::Base
   has_many :deposits # todo: only confirmed deposits that have amount > paid_out
   has_many :tips
 
-  validates :full_name, uniqueness: true, presence: true
-  validates :github_id, uniqueness: true, presence: true
+  validates :full_name, :github_id, uniqueness: true, presence: true
+  validates :host, inclusion: [ "github", "bitbucket" ], presence: true
 
   def update_github_info repo
     self.github_id = repo.id
