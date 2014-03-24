@@ -10,9 +10,11 @@ class ProjectsController < ApplicationController
     if @project and @project.bitcoin_address.nil? and (github_id = @project.github_id).present?
       label = "#{github_id}@peer4commit"
       address = PeercoinDaemon.instance.get_new_address(label)
-      @project.update_attributes(bitcoin_address: address, address_label: label)
+      @project.update_attribute :bitcoin_address, bitcoin_address
     end
   end
+      @project_tips = @project.tips
+ +    @recent_tips  = @project_tips.includes(:user).order(created_at: :desc).first(5)
 
   def qrcode
     @project = Project.find params[:id]
