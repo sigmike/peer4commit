@@ -6,8 +6,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find params[:id]
-    if @project and @project.bitcoin_address.nil? and (github_id = @project.github_id).present?
+    if @project.bitcoin_address.nil?
       label = "#{github_id}@peer4commit"
       address = PeercoinDaemon.instance.get_new_address(label)
       @project.update_attributes(bitcoin_address: address, address_label: label)
@@ -38,4 +37,9 @@ class ProjectsController < ApplicationController
       redirect_to projects_path, alert: "Project not found"
     end
   end
+  private
+ 
+   def load_project
+     super(params[:id])
+   end
 end
