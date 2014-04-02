@@ -15,7 +15,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           :nickname => info['nickname']
         )
       else
-        set_flash_message(:error, :failure, kind: 'GitHub', reason: 'your promary email address should be verified.')
+        set_flash_message(:error, :failure, kind: 'GitHub', reason: 'your primary email address should be verified.')
         redirect_to new_user_session_path and return
       end
     end
