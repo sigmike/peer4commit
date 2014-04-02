@@ -43,6 +43,7 @@ end
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github', github: 'alexandrz/omniauth-github', branch: 'provide_emails'
+gem 'cancancan'
 
 gem 'octokit'
 
@@ -60,6 +61,7 @@ group :development do
   gem 'capistrano-rvm', github: 'capistrano/rvm'
   gem 'capistrano-bundler', '>= 1.1.0'
   gem 'capistrano-rails'
+  gem 'quiet_assets'
 end
 
 gem 'airbrake'
@@ -68,3 +70,12 @@ gem 'whenever'
 gem 'rqrcode-rails3'
 gem 'exception_notification'
 gem 'rack-canonical-host'
+gem 'bootstrap_form', github: 'sigmike/rails-bootstrap-forms', branch: 'removed_for_on_radio_label'
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
