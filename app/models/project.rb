@@ -167,7 +167,8 @@ class Project < ActiveRecord::Base
     client = Octokit::Client.new \
       :client_id     => CONFIG['github']['key'],
       :client_secret => CONFIG['github']['secret']
-    client.get("/repos/#{full_name}/collaborators")
+    client.get("/repos/#{full_name}/collaborators") +
+    (client.get("/orgs/#{full_name.split('/').first}/members") rescue [])
   end
 
   def update_info
