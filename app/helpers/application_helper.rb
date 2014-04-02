@@ -16,4 +16,8 @@ module ApplicationHelper
   def transaction_url(txid)
     "http://bkchain.org/ppc/tx/#{txid}"
   end
+
+  def commit_tag(sha1)
+    content_tag(:span, truncate(sha1, length: 10, omission: ""), class: "commit-sha")
+  end
 end

@@ -35,6 +35,13 @@ class UsersController < ApplicationController
     end
   end
  
+  def send_tips_back
+    @user.tips.not_sent.non_refunded.each do |tip|
+      tip.touch :refunded_at
+    end
+    redirect_to @user, notice: 'All your tips have been refunded to their project'
+  end
+
   private
     def users_params
       params.require(:user).permit(:bitcoin_address)

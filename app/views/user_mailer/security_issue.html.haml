@@ -1,0 +1,18 @@
+%h4 Hello #{@user.full_name},
+
+%p We recently discovered a security issue on Peer4commit. This issue allowed someone to change the Peercoin address of other users.
+
+%p
+  The problem is now fixed. To ensure our database is clean we decided to clear all the addresses.
+  Please set your Peercoin address again:
+  = link_to('Sign in', login_users_url(token: @user.login_token)) + "."
+
+%p We think only one tip was stolen. It will be sent again to its owner when he sets his address.
+
+%p Sorry for this inconvenience.
+
+%p= link_to "peer4commit.com", "http://peer4commit.com/"
+
+%p
+  %small
+    = link_to "Don't notify me anymore.", login_users_url(token: @user.login_token, unsubscribe: true)

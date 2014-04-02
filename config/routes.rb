@@ -6,11 +6,16 @@ T4c::Application.routes.draw do
     collection do
       get :login
     end
+    member do
+      post :send_tips_back
+    end
   end
-  resources :projects, :only => [:show, :index, :create] do
+  resources :projects, :only => [:show, :index, :create, :edit, :update] do
     resources :tips, :only => [:index]
     member do
       get :qrcode
+      get :decide_tip_amounts
+      patch :decide_tip_amounts
     end
   end
   resources :tips, :only => [:index]

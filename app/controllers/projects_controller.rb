@@ -14,6 +14,42 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit
+    @project = Project.find params[:id]
+    authorize! :update, @project
+  end
+
+  def update
+    @project = Project.find params[:id]
+    authorize! :update, @project
+    @project.attributes = project_params
+    if @project.tipping_policies_text.try(:text_changed?)
+      @project.tipping_policies_text.user = current_user
+    end
+    if @project.save
+      redirect_to project_path(@project), notice: "The project settings have been updated"
+    else
+      render 'edit'
+    end
+  end
+
+  def decide_tip_amounts
+    @project = Project.find params[:id]
+    authorize! :decide_tip_amounts, @project
+    if request.patch?
+      @project.available_amount # preload anything required to get the amount, otherwise it's loaded during the assignation and there are undesirable consequences
+      @project.attributes = params.require(:project).permit(tips_attributes: [:id, :amount_percentage])
+      if @project.save
+        message = "The tip amounts have been defined"
+        if @project.has_undecided_tips?
+          redirect_to decide_tip_amounts_project_path(@project), notice: message
+        else
+          redirect_to @project, notice: message
+        end
+      end
+    end
+  end
+
   def qrcode
     @project = Project.find params[:id]
     respond_to do |format|
@@ -37,5 +73,10 @@ class ProjectsController < ApplicationController
     rescue Octokit::NotFound
       redirect_to projects_path, alert: "Project not found"
     end
+  end
+
+  private
+  def project_params
+    params.require(:project).permit(:hold_tips, tipping_policies_text_attributes: [:text])
   end
 end
