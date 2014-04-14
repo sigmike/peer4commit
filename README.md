@@ -1,6 +1,7 @@
 Prime4commit
 ==========
 
+[![primecoin tip for next commit](http://prime4commit.com/projects/1.svg)](http://prime4commit.com/projects/1)
 [![peercoin tip for next commit](http://peer4commit.com/projects/16.svg)](http://peer4commit.com/projects/16)
 
 
