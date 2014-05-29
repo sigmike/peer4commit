@@ -7,13 +7,13 @@ Feature: Some funds are transfered to cold storage
     And the cold storage addresses are
       | mpjDVmvCgsi2WW9qZJDQN6WgpDTP5iGbpD |
       | mr6HkUBp3iUqH6JuvD33banN4vZkifvTGD |
- 
+
   Scenario: A project receives funds to its non cold storage address
     When there's a new incoming transaction of "50" to address "mqEtf1CcGtAmoVRHENBVmBRpYppoEcA8LH" on the project account
     And the project balance is updated
     Then the project balance should be "49.5"
     And the project amount in cold storage should be "0"
- 
+
   Scenario: A project receives funds to its cold storage address
     When there's a new incoming transaction of "50" to address "n1g6mxaEpMb6cERcS4bGhmJPjxKc3msvni" on the project account
     And the project balance is updated

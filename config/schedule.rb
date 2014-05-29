@@ -22,7 +22,7 @@
 require File.expand_path('../../config/environment', __FILE__)
 every :reboot do
   if daemon = CONFIG['daemon']['path']
-    command daemon 
+    command daemon
   end
 end
 

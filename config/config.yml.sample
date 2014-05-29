@@ -1,6 +1,6 @@
 github:
   key: "111111111111"
-  secret: "111111111111"  
+  secret: "111111111111"
 
 daemon:
   username: rpcuser

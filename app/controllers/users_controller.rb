@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       redirect_to root_url, alert: 'User not found'
     end
   end
- 
+
   def send_tips_back
     @user.tips.not_sent.non_refunded.each do |tip|
       tip.touch :refunded_at
