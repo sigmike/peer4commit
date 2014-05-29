@@ -54,7 +54,7 @@ class BitcoinTipper
           Rails.logger.info "  #{sendmany.inspect}"
         end
       end
-    end   
+    end
   end
 
 end

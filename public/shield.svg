@@ -52,13 +52,13 @@
       <feComponentTransfer xmlns="http://www.w3.org/2000/svg">
         <feFuncA type="linear" slope="0.3"/>
       </feComponentTransfer>
-      <feMerge> 
+      <feMerge>
         <feMergeNode/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
   </defs>
-  
+
   <g id="vendor">
     <path d="M0,9 v-6 q0,-3,3,-3 v18 q-3,0,-3,-3 Z" fill="url(#gray)" />
     <rect x="3" y="0" width="55" height="18" fill="url(#gray)" />
