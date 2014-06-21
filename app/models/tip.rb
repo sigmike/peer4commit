@@ -65,11 +65,13 @@ class Tip < ActiveRecord::Base
 
 
   after_save :notify_user_if_just_decided
+  before_save :touch_decided_at_if_decided
 
 
   def self.refund_unclaimed
     unclaimed.non_refunded.
-    where('tips.created_at < ?', Time.now - 1.month).
+    where.not(decided_at: nil).
+    where('tips.decided_at < ?', Time.now - 1.month).
     find_each do |tip|
       tip.touch :refunded_at
     end
@@ -94,6 +96,10 @@ class Tip < ActiveRecord::Base
   def notify_user_if_just_decided
     return if distribution_id
     notify_user if amount_was.nil? and amount
+  end
+
+  def touch_decided_at_if_decided
+    self.decided_at = Time.now if amount_changed? && decided?
   end
 
   def coin_amount
