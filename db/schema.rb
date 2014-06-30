@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616060504) do
+ActiveRecord::Schema.define(version: 20140621023511) do
 
   create_table "cold_storage_transfers", force: true do |t|
     t.integer  "project_id"
@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 20140616060504) do
   add_index "tipping_policies_texts", ["user_id"], name: "index_tipping_policies_texts_on_user_id"
 
   create_table "tips", force: true do |t|
+    t.integer  "user_id"
     t.integer  "amount",          limit: 8
     t.integer  "distribution_id"
     t.datetime "created_at"
@@ -186,11 +187,11 @@ ActiveRecord::Schema.define(version: 20140616060504) do
     t.string   "commit"
     t.integer  "project_id"
     t.datetime "refunded_at"
-    t.string   "commit_message"
+    t.text     "commit_message"
     t.string   "comment"
     t.integer  "reason_id"
     t.string   "reason_type"
-    t.integer  "user_id"
+    t.datetime "decided_at"
   end
 
   add_index "tips", ["distribution_id"], name: "index_tips_on_distribution_id"
@@ -199,6 +200,7 @@ ActiveRecord::Schema.define(version: 20140616060504) do
   add_index "tips", ["user_id"], name: "index_tips_on_user_id"
 
   create_table "users", force: true do |t|
+    t.string   "email",                            default: "", null: false
     t.string   "encrypted_password",               default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -210,6 +212,7 @@ ActiveRecord::Schema.define(version: 20140616060504) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nickname"
     t.string   "name"
     t.string   "image"
     t.string   "bitcoin_address"
@@ -222,10 +225,9 @@ ActiveRecord::Schema.define(version: 20140616060504) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "email"
-    t.string   "nickname"
   end
 
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
