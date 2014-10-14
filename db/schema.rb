@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 20140714074128) do
   add_index "tipping_policies_texts", ["user_id"], name: "index_tipping_policies_texts_on_user_id"
 
   create_table "tips", force: true do |t|
+    t.integer  "user_id"
     t.integer  "amount",          limit: 8
     t.integer  "distribution_id"
     t.datetime "created_at"
@@ -187,7 +188,6 @@ ActiveRecord::Schema.define(version: 20140714074128) do
     t.string   "comment"
     t.integer  "reason_id"
     t.string   "reason_type"
-    t.integer  "user_id"
   end
 
   add_index "tips", ["distribution_id"], name: "index_tips_on_distribution_id"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 20140714074128) do
   add_index "tips", ["user_id"], name: "index_tips_on_user_id"
 
   create_table "users", force: true do |t|
+    t.string   "email",                            default: "",    null: false
     t.string   "encrypted_password",               default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -207,6 +208,7 @@ ActiveRecord::Schema.define(version: 20140714074128) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nickname"
     t.string   "name"
     t.string   "image"
     t.string   "bitcoin_address"
@@ -219,13 +221,12 @@ ActiveRecord::Schema.define(version: 20140714074128) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "email"
-    t.string   "nickname"
     t.boolean  "disabled",                         default: false
     t.string   "identifier",                                       null: false
   end
 
   add_index "users", ["disabled"], name: "index_users_on_disabled"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["identifier"], name: "index_users_on_identifier", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
