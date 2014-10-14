@@ -52,15 +52,16 @@ cp config/config.yml{.example,}
     bundle exec rake db:migrate
 ```
 
-* Make sure `ppcoind` is running with RPC enabled
+* Install phantomjs >= 1.8.1 in order to run the cucumber tests
+
+* Make sure `ppcoind` is running with RPC enabled - (see the [ppcoin repo](https://github.com/ppcoin/ppcoin/wiki/Installation))
 
 * Run the server
-
-
+```
     bundle exec rails server
+```
 
 * Connect to the server at http://localhost:3000/
-
 
 To update the project balances run this command:
 ```
