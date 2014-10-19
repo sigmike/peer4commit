@@ -19,3 +19,7 @@
 /config/config.yml
 
 /public/assets
+
+# files from other forks
+/coverage
+
