@@ -9,6 +9,7 @@
     %table.table.table-hover
       %thead
         %tr
+          %th#avatar_th
           %th.name Name
           %th.description Description
           %th.amount Funds
@@ -16,6 +17,8 @@
       %tbody
         - @projects.each do |project|
           %tr
+            %td
+              = image_tag project.avatar_url , class: 'project_avatar_img' if project.avatar_url
             %td.name
               %strong= link_to project.name, project
             %td.description= project.description
