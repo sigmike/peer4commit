@@ -1,7 +1,7 @@
 #sign-in-form
   .row
     .col-md-4
-      %h4 Sign in with your email
+      %h2 Sign in with your email
       = twitter_bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
         = hidden_field_tag :return_url, params[:return_url]
         = f.email_field :email, :autofocus => true
@@ -12,9 +12,9 @@
         = f.submit "Sign in", class: 'btn btn-primary btn-block'
     .col-md-4
       - if devise_mapping.omniauthable?
-        %h4 Sign in with a provider
+        %h2 Sign in with a provider
         - resource_class.omniauth_providers.each do |provider|
           = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider, origin: params[:return_url]), class: "btn btn-primary btn-block"
     .col-md-4
-      %h4 Other options
+      %h2 Other options
       = render "devise/shared/links"
