@@ -17,6 +17,7 @@
 
 /config/database.yml
 /config/config.yml
+/db/seeds.rb
 
 /public/assets
 
