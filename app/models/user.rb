@@ -65,14 +65,14 @@ class User < ActiveRecord::Base
   def recipient_label
     if nickname.present?
       nickname
-    elsif identifier.present?
-      identifier
     elsif email.present?
       if new_record?
         "#{email} (new user)"
       else
         email
       end
+    elsif identifier.present?
+      identifier
     else
       "Unknown user"
     end
