@@ -25,6 +25,8 @@ Given(/^I add the GitHub user "(.*?)" to the recipients$/) do |arg1|
     find("input:enabled").set(arg1)
     click_on "Add"
   end
+
+  wait_for_ajax
 end
 
 Given(/^I add the email address "(.*?)" to the recipients$/) do |arg1|
@@ -41,6 +43,8 @@ Given(/^I add the user with email "(.*?)" through his identifier to the recipien
     find("input:enabled").set(user.identifier)
     click_on "Add"
   end
+
+  wait_for_ajax
 end
 
 When(/^I select the commit recipients "(.*?)"$/) do |arg1|
@@ -54,6 +58,8 @@ When(/^I add the commit "(.*?)" to the recipients$/) do |arg1|
     find("input:enabled").set(arg1)
     click_on "Add"
   end
+
+  wait_for_ajax
 end
 
 Given(/^I fill the amount to "(.*?)" with "(.*?)"$/) do |arg1, arg2|

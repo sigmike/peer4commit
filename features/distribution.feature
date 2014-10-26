@@ -235,7 +235,7 @@ Feature: Fundraisers can distribute funds
     And the project balance should be "490.00"
 
   @javascript
-  Scenario: Send to an known email address who has no confirmation token
+  Scenario: Send to a known email address who has no confirmation token
     Given an user with email "bob@example.com" and without password nor confirmation token
     And a project managed by "alice"
     And our fee is "0"
