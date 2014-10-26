@@ -25,6 +25,8 @@ Given(/^I add the GitHub user "(.*?)" to the recipients$/) do |arg1|
     find("input:enabled").set(arg1)
     click_on "Add"
   end
+
+  wait_for_ajax
 end
 
 Given(/^I add the email address "(.*?)" to the recipients$/) do |arg1|
