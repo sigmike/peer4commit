@@ -17,5 +17,10 @@
 
 /config/database.yml
 /config/config.yml
+/db/seeds.rb
 
 /public/assets
+
+# files from other forks
+/coverage
+
