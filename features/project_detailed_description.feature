@@ -22,7 +22,7 @@ Feature: Project detailed description is markdown formatted
     And I click on "Save"
     Then I should not see a link "bar" to "javascript:alert('xss')"
 
-  Scenario: Embeded HTML
+  Scenario: Embedded HTML
     When I fill "Detailed description" with:
       """
       foo <a href="javascript:alert('xss')">bar</a>

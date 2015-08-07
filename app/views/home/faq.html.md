@@ -115,7 +115,7 @@ You can also donate without providing an address. But the fundraiser won't be ab
 
 What's going to happen next?
 ----------------------------
-There are many features planed. Their achievement depends on the willingness of donors, fundraisers and developers.
+There are many features planned. Their achievement depends on the willingness of donors, fundraisers and developers.
 
 ### Bitcoin support
 Adding support for Bitcoin is an important step. We can easily change Peer4commit to support projects either in Bitcoin or in Peercoin. But supporting multiple currecies in the same project will require more work and an external service to automatically convert currencies.

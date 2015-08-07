@@ -18,7 +18,7 @@ $(document).on "page:change", ->
           form[0].reset()
         false
       error: ->
-        form.append($("<div>").addClass("alert alert-danger").text("An error occured."))
+        form.append($("<div>").addClass("alert alert-danger").text("An error occurred."))
     false
 
   $(".commit-autocomplete[data-project-id]").each ->

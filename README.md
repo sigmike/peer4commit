@@ -67,7 +67,7 @@ To update the project balances run this command:
     bundle exec rails runner "BalanceUpdater.work"
 ```
 
-To retreive commits and send tips on project that do not hold tips:
+To retrieve commits and send tips on project that do not hold tips:
 ```
     bundle exec rails runner "BitcoinTipper.work"
 ```

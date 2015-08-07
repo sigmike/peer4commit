@@ -1,4 +1,4 @@
-Feature: Some funds are transfered to cold storage
+Feature: Some funds are transferred to cold storage
   Background:
     Given a project
     And our fee is "0.01"
