@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def transaction_url(txid)
-    "https://chainz.cryptoid.info/ppc/address.dws?#{txid}"
+    "https://chainz.cryptoid.info/ppc/tx.dws?#{txid}"
   end
 
   def address_explorers
