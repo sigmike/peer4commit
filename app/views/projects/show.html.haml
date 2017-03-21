@@ -2,13 +2,15 @@
   = @project.name
 - content_for :description do
   = @project.description
-  
+
 .row
   .col-md-8
-    %h1
-      = @project.name
+    %h1#project_header
       - if (url = @project.github_url).present?
-        %small= link_to glyph(:github), url, target: '_blank'
+        = (@project.avatar_url.nil?)? (glyph :github) : (image_tag @project.avatar_url , class: 'project_avatar_img')
+        = link_to @project.name, url, target: '_blank'
+      - else
+        = @project.name
     - unless @project.description.blank?
       %h3= @project.description
     - unless @project.detailed_description.blank?

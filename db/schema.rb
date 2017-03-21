@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714074128) do
+ActiveRecord::Schema.define(version: 20141020034918) do
 
   create_table "cold_storage_transfers", force: true do |t|
     t.integer  "project_id"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 20140714074128) do
     t.integer  "account_balance",                 limit: 8
     t.string   "disabled_reason"
     t.text     "detailed_description"
+    t.string   "avatar_url"
   end
 
   create_table "record_changes", force: true do |t|

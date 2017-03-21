@@ -17,6 +17,9 @@ class ProjectsController < ApplicationController
       return
     end
     commontator_thread_show(@project)
+
+    load_github_repo
+    update_project_avatar_url
   end
 
   def new
@@ -148,5 +151,30 @@ class ProjectsController < ApplicationController
     unless @project
       redirect_to root_path, alert: "Project not found"
     end
+  end
+
+  def load_github_repo
+    return if @project.nil?
+
+    github_repo_uri  = URI "#{GITHUBAPI_REPO_URL}/#{@project.full_name}"
+    github_repo_resp = Net::HTTP.get_response github_repo_uri
+    return unless github_repo_resp.is_a? Net::HTTPSuccess
+
+    github_repo_json = JSON.parse github_repo_resp.body
+    return if github_repo_json["id"].nil?
+
+    @github_repo     = github_repo_json
+    @github_owner    = @github_repo["owner"]
+    @github_org      = @github_repo["organization"]
+    @is_organization = @github_org.present?
+  end
+
+  def update_project_avatar_url
+    return if @project.nil? || !@is_organization
+
+    avatar_url   = @github_org["avatar_url"]
+    is_unchanged = avatar_url.eql? @project.avatar_url
+
+    @project.update_attribute :avatar_url , avatar_url unless is_unchanged
   end
 end
