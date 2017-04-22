@@ -1,12 +1,12 @@
-Peer4commit
+Prime4commit
 ==========
 
-[![peercoin tip for next commit](http://peer4commit.com/projects/1.svg)](http://peer4commit.com/projects/1)
-[![bitcoin tip for next commit](http://tip4commit.com/projects/560.svg)](http://tip4commit.com/projects/560)
+[![primecoin tip for next commit](http://prime4commit.com/projects/1.svg)](http://prime4commit.com/projects/16)
 
-Donate peercoins to open source projects or make commits and get tips for it.
 
-Official site: http://peer4commit.com/
+Donate primecoins to open source projects or make commits and get tips for it.
+
+Official site: http://prime4commit.com/
 
 Development
 ===========
@@ -75,6 +75,8 @@ To retreive commits and send tips on project that do not hold tips:
 License
 =======
 
-[MIT License](https://github.com/sigmike/peer4commit/blob/master/LICENSE)
+[MIT License](https://github.com/sigmike/prime4commit/blob/master/LICENSE)
 
-Based on [Tip4commit](http://tip4commit.com/), [MIT License](https://github.com/tip4commit/tip4commit/blob/master/LICENSE), copyright (c) 2013-2014 tip4commit
+Based on [peer4commit](http://peer4commit.com/), [MIT License](https://github.com/sigmike/peer4commit/blob/master/LICENSE), copyright (c) 2014 sigmike
+
+Which is based on [Tip4commit](http://tip4commit.com/), [MIT License](https://github.com/tip4commit/tip4commit/blob/master/LICENSE), copyright (c) 2013-2014 tip4commit
