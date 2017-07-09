@@ -11,7 +11,9 @@ gem 'pg', group: :postgresql
 # Use SCSS for stylesheets
 gem 'sass-rails'
 gem 'haml-rails'
-gem "less-rails"
+
+# use fork to remove warning, see https://github.com/metaskills/less-rails/issues/122 and https://github.com/metaskills/less-rails/pull/137
+gem "less-rails", git: 'https://github.com/brendon/less-rails.git', branch: 'fix-sprockets-loading'
 
 gem 'twitter-bootstrap-rails', git: 'https://github.com/seyhunak/twitter-bootstrap-rails.git', branch: 'bootstrap3'
 

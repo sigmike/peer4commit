@@ -8,6 +8,18 @@ GIT
       omniauth-oauth2 (~> 1.1)
 
 GIT
+  remote: https://github.com/brendon/less-rails.git
+  revision: 704326e74174fd11615e2488d3f2286dc0499603
+  branch: fix-sprockets-loading
+  specs:
+    less-rails (2.8.0)
+      actionpack (>= 4.0)
+      grease
+      less (~> 2.6.0)
+      sprockets (> 2, < 4)
+      tilt
+
+GIT
   remote: https://github.com/capistrano/rvm.git
   revision: 9cfef39cf0022839dca6b5b330dfefeb5fc363e7
   specs:
@@ -181,6 +193,7 @@ GEM
     github-markdown (0.6.9)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    grease (0.3.1)
     haml (5.0.1)
       temple (>= 0.8.0)
       tilt
@@ -230,11 +243,6 @@ GEM
       addressable (~> 2.3)
     less (2.6.0)
       commonjs (~> 0.2.7)
-    less-rails (2.8.0)
-      actionpack (>= 4.0)
-      less (~> 2.6.0)
-      sprockets (> 2, < 4)
-      tilt
     libv8 (3.16.14.19)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -435,7 +443,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   kaminari
-  less-rails
+  less-rails!
   mysql2
   octokit
   omniauth
