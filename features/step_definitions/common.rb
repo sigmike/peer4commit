@@ -197,7 +197,7 @@ Then(/^these amounts should have been sent from the account of the project:$/) d
         "amount" => (-tx["amount"]).to_s,
       }
     end
-  end.compact).to eq(table.hashes)
+  end.compact.sort_by { |x| x["address"] }).to eq(table.hashes.sort_by { |x| x["address"] })
 end
 
 When(/^the transaction history is cleared$/) do
