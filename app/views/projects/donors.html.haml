@@ -8,16 +8,16 @@
     %table.table.table-hover.donor-list
       %thead
         %tr
-          %th.sender-address Sender address
+          %th.date Date
           %th.amount Amount
-          %th.transactions Transactions
+          %th.sender-address Sender address
+          %th.transactions Transaction
       %tbody
-        - groups = @project.deposits.includes(:donation_address).group_by(&:donation_address)
-        - groups = groups.sort_by { |da, deposits| deposits.map(&:amount).sum }.reverse
-        - groups.each do |donation_address, deposits|
+        - @project.deposits.includes(:donation_address).order(created_at: :desc).each do |deposit|
           %tr.donor-row
-            %td.sender-address= donation_address.try(:sender_address).presence || 'No address provided'
-            %td.amount= btc_human deposits.map(&:amount).sum
-            %td.transactions
-              - deposits.sort_by(&:created_at).each_with_index do |deposit, i|
-                = link_to "[#{i+1}]", transaction_url(deposit.txid)
+            %td.date= l(deposit.created_at)
+            %td.amount= btc_human deposit.amount
+            %td.sender-address= deposit.donation_address.try(:sender_address).presence || 'No address provided'
+            %td.transactions.txid
+              = link_to transaction_url(deposit.txid) do
+                %abbr{title: deposit.txid}= truncate(deposit.txid, length: 10)
