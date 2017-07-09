@@ -280,7 +280,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
-    pg (0.21.0)
+    pg (0.20.0)
     poltergeist (1.15.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -448,7 +448,7 @@ DEPENDENCIES
   octokit
   omniauth
   omniauth-github!
-  pg
+  pg (~> 0.20.0)
   poltergeist
   quiet_assets
   rack-canonical-host
