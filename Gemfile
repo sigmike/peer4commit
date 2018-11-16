@@ -96,3 +96,7 @@ end
 gem 'awesome_print', group: [:development, :test]
 gem 'commonmarker'
 gem 'rack', '~> 1.6.11'
+gem "sprockets", ">= 3.7.2"
+gem "ffi", ">= 1.9.24"
+gem "loofah", ">= 2.2.3"
+gem "rails-html-sanitizer", ">= 1.0.4"
