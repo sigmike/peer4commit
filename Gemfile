@@ -95,3 +95,4 @@ group :test do
 end
 gem 'awesome_print', group: [:development, :test]
 gem 'commonmarker'
+gem 'rack', '~> 1.6.11'

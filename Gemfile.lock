@@ -289,7 +289,7 @@ GEM
     public_suffix (2.0.5)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.8)
+    rack (1.6.11)
     rack-canonical-host (0.2.3)
       addressable (> 0, < 3)
       rack (>= 1.0.0, < 3)
@@ -452,6 +452,7 @@ DEPENDENCIES
   pg (~> 0.20.0)
   poltergeist
   quiet_assets
+  rack (~> 1.6.11)
   rack-canonical-host
   rails (~> 4.2.0)
   rails_autolink
