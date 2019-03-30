@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def transaction_url(txid)
-    "https://peercoin.mintr.org/tx/#{txid}"
+    "https://abe.peercoinexplorer.net/tx/#{txid}"
   end
 
   def address_explorers
@@ -35,8 +35,8 @@ module ApplicationHelper
 
   def address_url(address, explorer = address_explorers.first)
     case explorer
-    when :blockr then "http://ppc.blockr.io/address/info/#{address}"
-    when :mintr then "https://peercoin.mintr.org/address/#{address}"
+    when :blockr then "https://abe.peercoinexplorer.net/address/#{address}"
+    when :mintr then "https://mintr.peercoinexplorer.net/address/#{address}"
     else raise "Unknown provider: #{provider.inspect}"
     end
   end
