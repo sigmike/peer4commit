@@ -4,7 +4,7 @@
     .jumbotron
       .container
         %h1 Make anything happen
-        %p.lead 
+        %p.lead
 
         %a.btn.btn-lg.btn-success{href: projects_path} See projects
 
@@ -39,7 +39,3 @@
               Fundraisers collect funds and distribute them to contributors.
             .button-container
               %a.btn.btn-primary.btn-block{href: faq_path} FAQ
-      / - if current_user
-      /         %a.btn.btn-primary{href: user_path(current_user)} Change your peercoin address »
-      /       - else
-      /         %a.btn.btn-primary{href: user_omniauth_authorize_path(:github)} Sign In »      
