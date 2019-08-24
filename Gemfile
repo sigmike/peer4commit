@@ -45,6 +45,7 @@ end
 gem 'devise'
 gem 'test_after_commit', :group => :test # https://github.com/plataformatec/devise/blob/master/CHANGELOG.md#410
 gem 'omniauth'
+gem 'omniauth-rails_csrf_protection', '~> 0.1'
 gem 'omniauth-github', git: 'https://github.com/alexandrz/omniauth-github.git', branch: 'provide_emails'
 gem 'cancancan'
 gem 'twitter_bootstrap_form_for', git: 'https://github.com/stouset/twitter_bootstrap_form_for.git'
