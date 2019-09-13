@@ -42,7 +42,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'devise'
+gem 'devise', "~> 4.7.1"
 gem 'test_after_commit', :group => :test # https://github.com/plataformatec/devise/blob/master/CHANGELOG.md#410
 gem 'omniauth'
 gem 'omniauth-rails_csrf_protection', '~> 0.1'
