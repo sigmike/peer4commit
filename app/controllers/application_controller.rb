@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  before_filter :closed
+
   protected
   def after_sign_in_path_for(user)
     params[:return_url].presence ||
@@ -22,5 +24,11 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:account_update, keys: [:email, :name, :bitcoin_address, :current_password, :password, :password_confirmation])
+  end
+
+  def closed
+    return if controller_name == "home" and action_name == "audit"
+
+    render "layouts/closed", status: 404
   end
 end

@@ -6,7 +6,7 @@
     %meta{content: "", name: "description"}/
     %meta{content: "", name: "author"}/
     %link{href: image_path("ppcoin.png"), rel: "shortcut icon"}/
-    
+
     %title= content_for?(:title) ? yield(:title) : "Peer4commit"
 
     %meta{name: 'description', content: (content_for?(:title) ? yield(:title) : "Donate peercoins to open source projects or make commits and get tips for it.")}
@@ -22,7 +22,7 @@
       %script{:src => "https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"}
 
 
-    
+
     = csrf_meta_tags
   %body{data: {environment: Rails.env}}
     - if Rails.env.production?
@@ -36,15 +36,8 @@
         ga('send', 'pageview');
     #top-bar
       .container
-        #session-menu
-          - if current_user
-            = link_to current_user.full_name, edit_registration_path(current_user), class: "edit-profile-link"
-            = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: "btn btn-default"
-          - else
-            = link_to "Sign in", new_user_session_path(return_url: request.url), class: "btn btn-default"
         %a#main-logo{href: root_path}
           %h3 Peer4commit
-        = render 'common/menu'
         = render_flash_message
     #main-content
       - if content_for?(:main_content)
@@ -59,12 +52,8 @@
           %p
             ©
             = link_to 'Peer4commit', 'http://peer4commit.com/', target: '_blank'
-            2014. Source code is available at #{link_to('github', 'https://github.com/sigmike/peer4commit', target: '_blank')},
+            2014-2019. Source code is available at #{link_to('github', 'https://github.com/sigmike/peer4commit', target: '_blank')},
             based on #{link_to "Tip4commit", "http://tip4commit.com/"}.
-            You can support its development with
-            = link_to('peercoins', 'http://peer4commit.com/projects/1')
-            or
-            = link_to('bitcoins', 'http://tip4commit.com/projects/560')
     / /container
     /
       Bootstrap core JavaScript
