@@ -28,6 +28,15 @@ git clone git@github.com:sigmike/peer4commit.git
 cd peer4commit
 ```
 
+or using docker:
+```
+cd $DIR # where dir is the git cloned repository
+docker build -t <username>/peer4commit .
+docker run -ti -v $PWD:/peer4commit <username>/peer4commit /bin/bash
+then you will be in the container, in the peer4commit directory
+where you can bundle install and change files
+```
+
 * Install the sqlite3 development libraries
 
 * Install the gems (without the production gems):
